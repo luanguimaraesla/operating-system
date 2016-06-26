@@ -2,7 +2,7 @@
 # kernel build system and can use its language.
 
 ifneq ($(KERNELRELEASE),)
-	obj-m := hello.o
+	obj-m := $(FILE).o
 
 # Otherwise we were called directly from the command
 # line; invoke the kernel build system.
