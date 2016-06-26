@@ -17,8 +17,10 @@ endif
 
 .PHONY: clean
 clean:
-	rm *.o
-	rm *.mod.c
-	rm *.order
-	rm *.symvers
+	rm -f *.o
+	rm -f *.mod.c
+	rm -f *.order
+	rm -f *.symvers
+	rm -rf .tmp_versions
+	rm -f .*.cmd
 
