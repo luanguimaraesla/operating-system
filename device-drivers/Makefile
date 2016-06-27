@@ -23,4 +23,3 @@ clean:
 	rm -f *.symvers
 	rm -rf .tmp_versions
 	rm -f .*.cmd
-
