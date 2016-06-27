@@ -5,6 +5,8 @@
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/version.h>
+MODULE_LICENSE("GPL");
+
 
   // UTS_RELEASE:
   // This macro expands to a string describing the version
@@ -20,7 +22,6 @@
 
 
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(3,16,5)
-MODULE_LICENSE("GPL");
 
 static int print_info(void){
   printk( KERN_ALERT "This kernel version is down to 3.16.5" );
