@@ -26,10 +26,10 @@ struct gpio_registers{
 struct gpio_registers *p_gpio_registers; // GPIO registers controller
 
 // Define finger's pins
-static const int finger_1_pin = 27;       
+//static const int finger_1_pin = 27;       
 static const int finger_2_pin = 18;       
-static const int finger_3_pin = 17;       
-static const int finger_4_pin = 22;       
+//static const int finger_3_pin = 17;       
+//static const int finger_4_pin = 22;       
 
 // Configure GPIO outputs
 static void set_gpio_function(int GPIO, int function_code){
@@ -58,8 +58,10 @@ static void set_gpio_output_value(int GPIO, bool output_value){
 char * kstrtok(const char *src){
     char *dest = (char *) kmalloc (sizeof(char) * 15, GFP_KERNEL);
     int i=0;
-    while(src[i] != '\0' && src[i] != '\n')
+    while(src[i] != '\0' && src[i] != '\n'){
       dest[i] = src[i];
+      i++;  
+    }
 
     dest[i] = '\0';
     return dest;
@@ -78,16 +80,16 @@ static ssize_t set_hand_action_callback(struct device* dev,
         printk(KERN_INFO "You can only 'close' and 'open' the hand.\n");
     else if (strcmp((const char *)cmd_cpy, "close") == 0){
         printk(KERN_INFO "Closing the hand.\n");
-        set_gpio_output_value(finger_1_pin, CLOSE_FINGER);
+      //  set_gpio_output_value(finger_1_pin, CLOSE_FINGER);
         set_gpio_output_value(finger_2_pin, CLOSE_FINGER);
-        set_gpio_output_value(finger_3_pin, CLOSE_FINGER);
-        set_gpio_output_value(finger_4_pin, CLOSE_FINGER);
+      //  set_gpio_output_value(finger_3_pin, CLOSE_FINGER);
+      //  set_gpio_output_value(finger_4_pin, CLOSE_FINGER);
     }else if (strcmp((const char *)cmd_cpy, "open") == 0){
         printk(KERN_INFO "Openning the hand.\n");
-        set_gpio_output_value(finger_1_pin, OPEN_FINGER);
+      //  set_gpio_output_value(finger_1_pin, OPEN_FINGER);
         set_gpio_output_value(finger_2_pin, OPEN_FINGER);
-        set_gpio_output_value(finger_3_pin, OPEN_FINGER);
-        set_gpio_output_value(finger_4_pin, OPEN_FINGER);
+      //  set_gpio_output_value(finger_3_pin, OPEN_FINGER);
+      //  set_gpio_output_value(finger_4_pin, OPEN_FINGER);
     }else{
         printk(KERN_INFO "You typed %s, but can only 'close' and 'open' the hand.\n",
                cmd_cpy);
@@ -107,10 +109,10 @@ static int __init begin(void){
   int result;
 
   p_gpio_registers = (struct gpio_registers *)__io_address(GPIO_BASE);
-  set_gpio_function( finger_1_pin, 0b001); //Output
+ // set_gpio_function( finger_1_pin, 0b001); //Output
   set_gpio_function( finger_2_pin, 0b001); //Output
-  set_gpio_function( finger_3_pin, 0b001); //Output
-  set_gpio_function( finger_4_pin, 0b001); //Output
+ // set_gpio_function( finger_3_pin, 0b001); //Output
+ // set_gpio_function( finger_4_pin, 0b001); //Output
 
   p_device_class = class_create(THIS_MODULE, "bionic_hand");
   BUG_ON(IS_ERR(p_device_class));
@@ -125,10 +127,10 @@ static int __init begin(void){
 }
 
 static int __exit end(void){
-  set_gpio_function( finger_1_pin, 0); //input
+ // set_gpio_function( finger_1_pin, 0); //input
   set_gpio_function( finger_2_pin, 0); //input
-  set_gpio_function( finger_3_pin, 0); //input
-  set_gpio_function( finger_4_pin, 0); //input
+ // set_gpio_function( finger_3_pin, 0); //input
+ // set_gpio_function( finger_4_pin, 0); //input
   device_remove_file(p_device_object, &dev_attr_action);
   device_destroy(p_device_class, 0);
   class_destroy(p_device_class);

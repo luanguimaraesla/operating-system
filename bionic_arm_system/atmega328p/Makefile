@@ -12,7 +12,7 @@ $(SOURCE).hex: $(SOURCE).o $(SOURCE).elf
 $(SOURCE).elf: $(SOURCE).o
 	$(COMPILER) -mmcu=atmega328p $(SOURCE).o -o $(SOURCE).elf
 
-$(SOURCE).o:
+$(SOURCE).o: $(SOURCE).c
 	$(COMPILER) -Os -DF_CPU=16000000UL -mmcu=$(MICROCONTROLLER) -c -o $(SOURCE).o $(SOURCE).c
 
 .PHONY: clean
